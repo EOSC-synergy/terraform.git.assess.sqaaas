@@ -1,0 +1,66 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: main
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/hashicorp/terraform:
+      branch: main
+      repo: https://github.com/hashicorp/terraform.git
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/hashicorp/terraform git:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleepy-wisteria-bat.sh
+        container: qc.acc_crabby-sapphire-raccoon
+  QC.Doc:
+    repos:
+      github.com/hashicorp/terraform find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.chummy-amber-hippopotamus.sh
+        container: qc.doc_droopy-peach-panda
+      github.com/hashicorp/terraform git:
+        commands:
+        - /usr/bin/env sh .sqa/script.shaggy-gamboge-leopard.sh
+        container: qc.doc_fuzzy-plum-stoat
+      github.com/hashicorp/terraform markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.sloppy-black-kiwi.sh
+        container: qc.doc_skanky-rust-shrimp
+  QC.Lic:
+    repos:
+      github.com/hashicorp/terraform licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.nerdy-orchid-ant.sh
+        container: qc.lic_lumpy-khaki-olm
+  QC.Sec:
+    repos:
+      github.com/hashicorp/terraform gosec:
+        commands:
+        - /usr/bin/env sh .sqa/script.scanty-cinnabar-robin.sh
+        container: qc.sec_fuzzy-wheat-saola
+  QC.Sty:
+    repos:
+      github.com/hashicorp/terraform hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.crappy-wisteria-emu.sh
+        container: qc.sty_homey-eggplant-budgerigar
+      github.com/hashicorp/terraform jsonlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.gamy-orange-cattle.sh
+        container: qc.sty_dorky-gamboge-butterfly
+      github.com/hashicorp/terraform staticcheck:
+        commands:
+        - /usr/bin/env sh .sqa/script.greasy-zucchini-fox.sh
+        container: qc.sty_pasty-copper-bongo
+  QC.Ver:
+    repos:
+      github.com/hashicorp/terraform get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.shaggy-charcoal-squid.sh
+        container: qc.ver_wheezy-ochre-wolfhound
+timeout: 5400
